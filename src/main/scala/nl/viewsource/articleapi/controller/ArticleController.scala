@@ -1,19 +1,20 @@
 package nl.viewsource.articleapi.controller
 
-import nl.viewsource.articleapi.article.entity.{Article, ArticleValidationError}
+import nl.viewsource.articleapi.article.entity.Article
 import nl.viewsource.articleapi.article.usecase.{CreateArticle, FindArticle}
 import nl.viewsource.articleapi.controller.model.ArticleWeb
+import nl.viewsource.articleapi.port.EntityValidator.ValidationMessages
 
-class ArticleController(val createArticle: CreateArticle, val findArticle: FindArticle) {
+class ArticleController(val createArticleUsecase: CreateArticle, val findArticle: FindArticle) {
 
-  def findArticleById(articleId:String): Option[Article] = findArticle.findById(articleId)
+  def findArticleById(articleId: String): Option[Article] = findArticle.findById(articleId)
 
   def listArticles(): List[Article] = findArticle.findAllArticles()
 
-  def createArticle(articleWeb: ArticleWeb): Either[ArticleValidationError, Article] =
-    createArticle.create(articleWeb.toArticle)
+  def createArticle(articleWeb: ArticleWeb): Either[ValidationMessages, Article] =
+    createArticleUsecase.create(articleWeb.toArticle)
 
-  def updateArticle(articleId: String, articleWeb: ArticleWeb): Option[Either[ArticleValidationError, Article]] =
-    createArticle.update(articleId, articleWeb.toArticle)
+  def updateArticle(articleId: String, articleWeb: ArticleWeb): Option[Either[ValidationMessages, Article]] =
+    createArticleUsecase.update(articleId, articleWeb.toArticle)
 
 }

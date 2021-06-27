@@ -17,17 +17,17 @@ class ArticleWeb (
                   ) {
 
   def toArticle: Article = Article(
-    id  = id,
-    hash  = hash,
-    title  = title,
-    description  = description,
-    tags  = tags,
-    link  = link,
-    image  = image,
-    date  = sdf.parse(date)
+    id = id,
+    hash = hash,
+    title = title,
+    description = description,
+    tags = tags,
+    link = link,
+    image = image,
+    date = ArticleWeb.sdf.parse(date)
   )
-
-  @Static
+}
+object ArticleWeb {
   def toArticleWeb(article:Article): ArticleWeb = new ArticleWeb(
     id  = article.id,
     hash  = article.hash,
@@ -36,7 +36,7 @@ class ArticleWeb (
     tags  = article.tags,
     link  = article.link,
     image  = article.image,
-    date  = sdf.format(article.date)
+    date  = ArticleWeb.sdf.format(article.date)
   )
 
   val sdf: SimpleDateFormat = new SimpleDateFormat("yyy-MM-dd'T'HH:mm:ss.SSSXXX")

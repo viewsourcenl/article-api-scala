@@ -1,14 +1,22 @@
 package nl.viewsource.articleapi.article.entity
 
+import nl.viewsource.articleapi.article.entity.Article.{Tag, Url}
+
 import java.util.Date
 
+
 case class Article(
-                    val id: String,
-                    val hash: String,
-                    val title: String,
-                    val description: String,
-                    val tags: List[String],
-                    val link: String,
-                    val image: String,
-                    val date: Date
+                    id: String,
+                    hash: String,
+                    title: String,
+                    description: String,
+                    tags: List[Tag],
+                    link: Url,
+                    image: Url,
+                    date: Date
                   )
+
+object Article {
+  type Tag = String
+  type Url = String
+}
